@@ -26,11 +26,11 @@ class DeviceUtils {
     if (isAndroid()) {
       AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
 
-      return 'Device name: ${androidInfo.model}';
+      return '${androidInfo.model}';
     } else {
       IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
 
-      return 'Device name: ${iosInfo.name}';
+      return '${iosInfo.name}';
     }
   }
 

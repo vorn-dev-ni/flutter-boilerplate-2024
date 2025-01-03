@@ -1,4 +1,5 @@
 import 'package:demo/utils/constant/app_colors.dart';
+import 'package:demo/utils/constant/enums.dart';
 import 'package:flutter/material.dart';
 
 class AppTextTheme {
@@ -146,4 +147,8 @@ class AppTextTheme {
                 fontWeight: FontWeight.w500,
                 fontFamily: 'DMSans'),
           );
+
+  static TextTheme getTextTheme(AppTheme appTheme) {
+    return appTheme == AppTheme.light ? lightTextTheme : darkTextTheme;
+  }
 }

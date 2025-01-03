@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 AppBar AppBarCustom(
     {String? text,
     Color? bgColor,
+    Color? textColor,
     bool? isCenter = true,
     Widget? leading,
     TabBar? tabbar,
@@ -17,7 +18,7 @@ AppBar AppBarCustom(
     elevation: 0,
     actions: [
       Padding(
-        padding: EdgeInsets.only(right: Sizes.lg),
+        padding: const EdgeInsets.only(right: Sizes.lg),
         child: leading,
       )
     ],
@@ -29,7 +30,7 @@ AppBar AppBarCustom(
           text ?? "",
           textAlign: TextAlign.start,
           style: AppTextTheme.lightTextTheme.headlineSmall
-              ?.copyWith(fontWeight: FontWeight.bold),
+              ?.copyWith(fontWeight: FontWeight.bold, color: textColor),
         ),
         if (showheader) HeaderText(),
       ],

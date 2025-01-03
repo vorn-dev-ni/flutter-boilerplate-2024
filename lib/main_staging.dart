@@ -1,7 +1,9 @@
 import 'dart:async';
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:demo/core/riverpod/app_setting.dart';
 import 'package:demo/core/riverpod/connectivity_state.dart';
 import 'package:demo/data/service/firebase_remote_config.dart';
+import 'package:demo/l10n/I10n.dart';
 import 'package:demo/utils/constant/app_page.dart';
 import 'package:demo/utils/constant/enums.dart';
 import 'package:demo/utils/flavor/config.dart';
@@ -14,6 +16,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sizer/sizer.dart';
+import 'generated/l10n.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 // import 'package:flutter_config/flutter_config.dart';
 void main() async {
@@ -66,7 +70,6 @@ class _MyAppState extends ConsumerState<MyApp> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     _streamSubscription.cancel();
     super.dispose();
   }
@@ -89,16 +92,31 @@ class _MyAppState extends ConsumerState<MyApp> {
 
   @override
   Widget build(BuildContext context) {
+    final appSettingState = ref.watch(appSettingsControllerProvider);
+    final themMode = appSettingState.appTheme == AppTheme.light
+        ? ThemeMode.light
+        : ThemeMode.dark;
     return Sizer(builder: (context, orientation, screenType) {
       return MaterialApp(
         title: 'Flutter Staging',
         debugShowCheckedModeBanner: false,
+        locale: Locale(appSettingState.localization),
+        supportedLocales: L10n.all,
+        localizationsDelegates: const [
+          AppLocalizations.delegate,
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
         // routes: AppRoutes.getAppRoutes(),
         navigatorKey: navigatorKey,
         onGenerateRoute: (settings) =>
             GlobalConfig.instance.onGenerateRoute(settings),
-        darkTheme: SchemaData.darkThemeData,
-        theme: SchemaData.lightThemeData,
+
+        themeMode: themMode,
+        theme: SchemaData.lightThemeData(locale: appSettingState.localization),
+        darkTheme:
+            SchemaData.darkThemeData(locale: appSettingState.localization),
         initialRoute: AppPage.FIRST,
         // home: const WelcomeScreen(),
       );
