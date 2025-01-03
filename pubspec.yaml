@@ -102,6 +102,7 @@ flutter:
     - assets/utils/
     - .env.dev
     - .env
+    - .env.staging
 
 flutter_intl:
   flutter_intl:

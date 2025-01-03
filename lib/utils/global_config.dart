@@ -6,6 +6,7 @@ import 'package:demo/features/other/not_found.dart';
 import 'package:demo/utils/constant/app_page.dart';
 import 'package:demo/utils/firebase/firebase.dart';
 import 'package:demo/utils/firebase/firebase_options.dart';
+import 'package:demo/utils/helpers/helpers_utils.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -21,9 +22,7 @@ class GlobalConfig {
   Future<void> init() async {
     WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
     FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
-
-    await dotenv.load(fileName: ".env.dev");
-
+    await dotenv.load(fileName: HelpersUtils.getEnvironment());
     await initializeFirebaseApp(DefaultFirebaseOptions.currentPlatform);
   }
 

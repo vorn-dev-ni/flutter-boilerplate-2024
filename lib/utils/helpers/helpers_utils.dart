@@ -1,8 +1,8 @@
 import 'dart:convert';
-
 import 'package:demo/utils/constant/app_colors.dart';
 import 'package:demo/utils/constant/enums.dart';
 import 'package:demo/utils/exception/app_exception.dart';
+import 'package:demo/utils/flavor/config.dart';
 import 'package:demo/utils/theme/text/text_theme.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -34,6 +34,16 @@ class HelpersUtils {
         style: AppTextTheme.lightTextTheme.bodySmall,
       )),
     );
+  }
+
+  static String getEnvironment() {
+    if (AppConfig.appConfig.flavor == Flavor.dev) {
+      return '.env.dev';
+    } else if (AppConfig.appConfig.flavor == Flavor.staging) {
+      return '.env.staging';
+    } else {
+      return '.env';
+    }
   }
 
   static NavigatorState navigatorState(BuildContext context) {
