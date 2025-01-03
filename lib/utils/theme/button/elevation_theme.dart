@@ -1,3 +1,4 @@
+import 'package:demo/utils/constant/enums.dart';
 import 'package:demo/utils/constant/sizes.dart';
 import 'package:flutter/material.dart';
 import 'package:demo/utils/constant/app_colors.dart';
@@ -35,4 +36,10 @@ class ElevationTheme {
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
     ),
   );
+
+  static getElevationTheme(AppTheme appTheme) {
+    return appTheme == AppTheme.light
+        ? elevationButtonLight
+        : elevationButtonDark;
+  }
 }
